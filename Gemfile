@@ -9,16 +9,13 @@ gem 'pg'
 gem 'rails', '>= 4.0'
 gem 'quiet_assets'
 gem 'newrelic_rpm'
+gem 'sass-rails'
 
 gem 'rails_12factor', group: :production
 
-
-group :assets do
-  gem 'coffee-rails'
-  gem 'sass-rails'
-  gem 'haml-rails'
-  gem 'uglifier'
-end
+gem 'coffee-rails'
+gem 'haml-rails'
+gem 'uglifier'
 
 group :development do
   gem 'better_errors'
