@@ -1,25 +1,19 @@
 .l-sidebar
-
+  %h2.m-headline Dein Stimmbezirk
+  .m-district-list
+    - @districts.each do |district|
+      .m-district{class: @district == district ? 'is-active' : ''}
+        = link_to root_path(district: district.official_id) do
+          .m-district--name
+            = district.name
 .l-main-content
-  %h3.m-headline Interaktiver Stimmzettel
+  %h3.m-headline= "Interaktiver Stimmzettel #{@district.name}"
   %h2.m-headline Sie haben 2 Stimmen
   .m-stimmzettel
     .m-stimmzettel--first-vote
       .m-stimmzettel--headline Erststimme
-      .m-politican-list
-        .m-politican
-          .m-politican--number 1
-          .m-politican--person
-          .m-politican--voting
-            = link_to "" do
-              .m-politican--voting--button
+      = render 'shared/politicans'
     .m-stimmzettel--second-vote
       .m-stimmzettel--headline Zweitstimme
-      .m-politican-list
-        .m-politican_blue
-          .m-politican--voting
-            = link_to "" do
-              .m-politican--voting--button
-          .m-politican--person
-          .m-politican--number 1
+      = render 'shared/parties'
 

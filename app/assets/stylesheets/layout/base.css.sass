@@ -1,8 +1,23 @@
+html, body
+  margin: 0
+  padding: 0
+  background-color: $grey
+
 .l-header, .l-content, .l-footer
   width: $layout-width
   margin: 0 auto
 
+.l-content
+  background-color: white
+  +pie-clearfix
+  padding: $margin
+  +box-shadow(0 0 10px 1px #aaa)
+
 .l-main-content
   width: $content-width
+  float: right
 .l-sidebar
   width: $sidebar-width
+  float: left
+  margin-top: 110px
+  padding-right: $margin

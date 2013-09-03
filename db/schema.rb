@@ -11,6 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20130903142419) do
+
+  create_table "electoral_districts", force: true do |t|
+    t.string   "official_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "parties", force: true do |t|
+    t.string   "slug"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "politicans", force: true do |t|
+    t.string   "name"
+    t.integer  "party_id"
+    t.integer  "electoral_district_id"
+    t.string   "job"
+    t.string   "city"
+    t.string   "year_of_birth"
+    t.string   "parlament_watch_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

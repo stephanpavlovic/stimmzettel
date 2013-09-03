@@ -5,6 +5,7 @@
   +border-radius($border-radius)
   .m-stimmzettel--headline
     font-size: 26px
+    @extend .m-headline
   .m-stimmzettel--first-vote, .m-stimmzettel--second-vote
     width: $content-width / 2
     padding: $padding
@@ -15,3 +16,5 @@
       text-align: right
   .m-stimmzettel--second-vote
     color: $blue
+    .m-stimmzettel--headline
+      text-align: left

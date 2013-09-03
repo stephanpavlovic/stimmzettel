@@ -1,0 +1,12 @@
+.m-politican-list
+  - @politicians.each_with_index do |politician, index|
+    .m-politican
+      .m-politican--number= index + 1
+      .m-politican--person
+        .m-politican--person--party= politician.party.slug
+        .m-politican--person--name= politician.name
+        .m-politican--person--job= politician.job
+      .m-politican--voting
+        = link_to "" do
+          .m-politican--voting--button
+

@@ -1,0 +1,41 @@
+%m-party
+  +pie-clearfix
+  cursor: pointer
+  .m-party--number, .m-party--content, .m-party--voting
+    border: 1px solid $blue
+    float: left
+    padding: $padding 5px
+    height: 80px
+  .m-party--number
+    text-align: center
+    line-height: 40px
+    width: 30px
+  .m-party--voting
+    .m-party--voting--button
+      width: 40px
+      height: 40px
+      +border-radius(100%)
+      border: 1px solid $blue
+      text-align: center
+      font-size: 30px
+  .m-party--content
+    width: 236px
+    position: relative
+    +pie-clearfix
+    .m-party--slug
+      position: absolute
+      left: 30px
+      font-size: 24px
+      font-weight: bold
+    .m-party--name
+      float: right
+      font-size: 10px
+      width: 100px
+  &:hover, &.is-active
+    background-color: white
+    .m-party--voting
+      .m-party--voting--button
+        background-color: $blue
+
+.m-party
+  @extend %m-party

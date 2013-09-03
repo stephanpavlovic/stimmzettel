@@ -1,0 +1,10 @@
+.m-party-list
+  - Party.all.each_with_index do |party, index|
+    .m-party
+      .m-party--voting
+        = link_to "" do
+          .m-party--voting--button
+      .m-party--content
+        .m-party--slug= party.slug
+        .m-party--name= party.name
+      .m-party--number= index+1

@@ -1,5 +1,7 @@
 %m-politican
   +pie-clearfix
+  cursor: pointer
+  overflow: hidden
   .m-politican--number, .m-politican--person, .m-politican--voting
     border: 1px solid $black
     float: left
@@ -8,24 +10,34 @@
   .m-politican--number
     text-align: center
     line-height: 40px
+    width: 30px
   .m-politican--voting
     .m-politican--voting--button
       width: 40px
       height: 40px
       +border-radius(100%)
       border: 1px solid $black
-      &:hover
+      text-align: center
+      font-size: 30px
+  &:hover, &.is-active
+    background-color: white
+    .m-politican--voting
+      .m-politican--voting--button
         background-color: $black
 
+  .m-politican--person
+    width: 236px
+    position: relative
+    .m-politican--person--name
+      font-size: 12px
+      font-weight: bold
+    .m-politican--person--party
+      position: absolute
+      right: 30px
+      font-size: 24px
+      font-weight: bold
+      margin-top: 5px
+    .m-politican--person--job
+      font-size: 10px
 .m-politican
   @extend %m-politican
-
-.m-politican_blue
-  @extend %m-politican
-  .m-politican--number, .m-politican--person, .m-politican--voting
-    border-color: $blue
-  .m-politican--voting
-    .m-politican--voting--button
-      border-color: $blue
-      &:hover
-        background-color: $blue
