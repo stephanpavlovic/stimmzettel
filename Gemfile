@@ -10,6 +10,8 @@ gem 'rails', '>= 4.0'
 gem 'quiet_assets'
 gem 'newrelic_rpm'
 
+gem 'rails_12factor', group: :production
+
 
 group :assets do
   gem 'coffee-rails'
@@ -36,9 +38,4 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'timecop'
-end
-
-group :deploy do
-  gem "capistrano"
-  gem "capistrano-ext"
 end
