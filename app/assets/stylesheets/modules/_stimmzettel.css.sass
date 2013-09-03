@@ -1,0 +1,17 @@
+.m-stimmzettel
+  background-color: $grey
+  +box-shadow(0 0 30px 1px #aaa inset)
+  +pie-clearfix
+  +border-radius($border-radius)
+  .m-stimmzettel--headline
+    font-size: 26px
+  .m-stimmzettel--first-vote, .m-stimmzettel--second-vote
+    width: $content-width / 2
+    padding: $padding
+    float: left
+  .m-stimmzettel--first-vote
+    color: $black
+    .m-stimmzettel--headline
+      text-align: right
+  .m-stimmzettel--second-vote
+    color: $blue

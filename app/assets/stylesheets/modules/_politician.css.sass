@@ -1,0 +1,31 @@
+%m-politican
+  +pie-clearfix
+  .m-politican--number, .m-politican--person, .m-politican--voting
+    border: 1px solid $black
+    float: left
+    padding: $padding 5px
+    height: 80px
+  .m-politican--number
+    text-align: center
+    line-height: 40px
+  .m-politican--voting
+    .m-politican--voting--button
+      width: 40px
+      height: 40px
+      +border-radius(100%)
+      border: 1px solid $black
+      &:hover
+        background-color: $black
+
+.m-politican
+  @extend %m-politican
+
+.m-politican_blue
+  @extend %m-politican
+  .m-politican--number, .m-politican--person, .m-politican--voting
+    border-color: $blue
+  .m-politican--voting
+    .m-politican--voting--button
+      border-color: $blue
+      &:hover
+        background-color: $blue
