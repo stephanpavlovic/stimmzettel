@@ -6,6 +6,8 @@
         = link_to root_path(district: district.official_id) do
           .m-district--name
             = district.name
+  .m-district-map
+    %div{:class => "map", :id => "map"}
 .l-main-content
   %h3.m-headline= "Interaktiver Stimmzettel #{@district.name}"
   %h2.m-headline Sie haben 2 Stimmen
@@ -17,3 +19,44 @@
       .m-stimmzettel--headline Zweitstimme
       = render 'shared/parties'
 
+:javascript
+  //load the geojson file
+  d3.json("stimmbezirke_min.geojson", function(cologne) {
+    map = new L.Map('map');
+
+    // create the OpenStreetMap layer
+    osmTile = "http://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    osmCopyright = "Map data &copy; 2012 OpenStreetMap contributors";
+    osmLayer = new L.TileLayer(osmTile, { maxZoom: 18, attribution: osmCopyright } );
+    map.addLayer(osmLayer);
+
+    // set the map's starting view
+    map.setView( new L.LatLng(50.935493, 6.967091 ), 10 );
+    
+    function get_color(feature, district) {
+      if (feature.properties.B_Wahl == district) {
+        return "blue";
+      }else{
+        return "gray";
+      }
+    }
+
+    function get_district(number) {
+      district = {};
+      district[93] = "I";
+      district[94] = "II";
+      district[95] = "III";
+      district[101] = "IV";
+      return district[number];
+    }
+
+    // set the colors and popup
+    L.geoJson( cologne, {
+        style: function (feature) {
+            return { opacity: 0, fillOpacity: 0.5, fillColor: get_color(feature, #{@district.official_id}) };
+        },
+        onEachFeature: function(feature, layer){
+            layer.bindPopup(" Stimmbezirk: " + get_district(feature.properties.B_Wahl) + " (" + feature.properties.STT + ")" );
+        }
+    }).addTo(map);
+  });
