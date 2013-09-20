@@ -1,7 +1,7 @@
 require 'csv'
 
 namespace :import do
-  desc 'convert vimeo links to https'
+  desc 'import politicans and districts'
   task data: :environment do
     csv_text = File.read("db/Direktkandidaten_Direktkandidatinnen.csv")
     csv = CSV.parse(csv_text, headers: true)
