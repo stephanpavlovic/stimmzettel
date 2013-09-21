@@ -1,5 +1,9 @@
 .l-main-content
   %h3.m-headline= "Resultate"
+.l-select
+  = form_tag(results_url, :method => :get) do
+    = select_tag(:election_id, options_for_select(BundestagElection.all.map { |election| [election.elective_date, election.id]}))
+    = submit_tag
 .m-district-map
   %div{:class => "map", :id => "map"}  
 :javascript
