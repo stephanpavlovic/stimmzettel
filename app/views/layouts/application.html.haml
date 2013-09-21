@@ -7,6 +7,16 @@
     = csrf_meta_tags
   %body
     .l-header
+    .l-menu
+      %ul
+        %li 
+          = link_to "Vor der Wahl", root_url
+        %li 
+          = link_to "Sehr kurz davor", "http://wahlauer.de"
+        %li 
+          = link_to "Während der Wahl", "#"
+        %li 
+          = link_to "Danach...", "#"
     .l-content
       = yield
     .l-footer

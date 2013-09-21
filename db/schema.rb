@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130921132634) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "bundestag_election_party_votes", force: true do |t|
     t.integer  "bundestag_election_id"
     t.integer  "party_id"
