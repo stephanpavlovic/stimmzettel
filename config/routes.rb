@@ -1,4 +1,9 @@
 Stimmzettel::Application.routes.draw do
+  root :to => 'pages#home'
+
+  resources :bundestag_election_district_votes
+  resources :results
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +53,6 @@ Stimmzettel::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'pages#home'
 
   # See how all your routes lay out with "rake routes"
 

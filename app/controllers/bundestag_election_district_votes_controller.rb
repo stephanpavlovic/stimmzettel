@@ -1,0 +1,2 @@
+class BundestagElectionDistrictVotesController < ApplicationController
+end
