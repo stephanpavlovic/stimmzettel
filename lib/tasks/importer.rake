@@ -13,7 +13,7 @@ namespace :import do
     csv.each do |row|
       #setup parties and electoral districts
       party = if Party.where(slug: row[2].parameterize(sep='_')).empty?
-        Party.create(slug: row[2].parameterize(sep='_'), name: row[3]) if row[2].parameterize(sep='_').present?
+        Party.create(slug: row[2].parameterize(sep='_'), name: row[3], short_name: row[2]) if row[2].parameterize(sep='_').present?
       else
         Party.where(slug: row[2].parameterize(sep='_')).first
       end

@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     @bundesttag_elections = BundestagElection.all.map do |election_day|
       {
         date: election_day.elective_date,
-        numbers: election_day.bundestag_election_party_votes.map(&:party).map(&:slug).zip(election_day.bundestag_election_party_votes.map(&:vote_percent))
+        numbers: election_day.bundestag_election_party_votes.map(&:party).map(&:short_name).zip(election_day.bundestag_election_party_votes.map(&:vote_percent))
       }
     end
   end
