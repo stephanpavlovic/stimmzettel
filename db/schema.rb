@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903142419) do
+ActiveRecord::Schema.define(version: 20130921110850) do
+
+  create_table "bundestag_election_party_votes", force: true do |t|
+    t.integer  "bundestag_election_id"
+    t.integer  "party_id"
+    t.integer  "vote_count"
+    t.float    "vote_percent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bundestag_elections", force: true do |t|
+    t.date     "elective_date"
+    t.integer  "elective_count"
+    t.float    "elective_percent"
+    t.integer  "had_choosen_count"
+    t.float    "had_choosen_percent"
+    t.integer  "valid_votes_count"
+    t.float    "valid_votes_percent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "electoral_districts", force: true do |t|
     t.string   "official_id"
