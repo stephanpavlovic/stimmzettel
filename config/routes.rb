@@ -3,6 +3,8 @@ Stimmzettel::Application.routes.draw do
 
   resources :bundestag_election_district_votes
   resources :results
+
+  get 'pages/wahlauer' => 'pages#wahlauer'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

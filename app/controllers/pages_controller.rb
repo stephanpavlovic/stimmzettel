@@ -10,4 +10,7 @@ class PagesController < ApplicationController
       }
     end
   end
+
+  def wahlauer
+  end
 end
