@@ -1,2 +1,85 @@
 .l-main-content
   %h3.m-headline= "Resultate"
+.m-district-map
+  %div{:class => "map", :id => "map"}  
+:javascript
+  //load the geojson file
+  d3.json("stimmbezirke_min.geojson", function(cologne) {
+    var width  = 320;
+    var height = 530;
+
+    var vis = d3.select("#map").append("svg")
+    .attr("width", width).attr("height", height)
+
+    // create a first guess for the projection
+    var center = d3.geo.centroid(cologne)
+    var scale  = 60;
+    var offset = [width/4.1, height/3.3];
+    var projection = d3.geo.mercator().scale(scale).center(center)
+        .translate(offset);
+
+    // create the path
+    var path = d3.geo.path().projection(projection);
+
+    // using the path determine the bounds of the current map and use 
+    // these to determine better values for the scale and translation
+    var bounds  = path.bounds(cologne);
+    var hscale  = scale*width  / (bounds[1][0] - bounds[0][0]);
+    var vscale  = scale*height / (bounds[1][1] - bounds[0][1]);
+    var scale   = (hscale < vscale) ? hscale : vscale;
+    var offset  = [width - (bounds[0][0] + bounds[1][0]),
+                      height - (bounds[0][1] + bounds[1][1])];
+
+    // new projection
+    projection = d3.geo.mercator().center(center)
+      .scale(scale).translate(offset);
+    path = path.projection(projection);
+
+    vis.selectAll("path")
+      .data(cologne.features).enter().append("path")
+      .attr("d", path)
+      .attr("id", function(d) { return d.properties.B_Wahl})
+      .attr("class", "stadtteil")
+      .style("fill", function(d) { return get_color( d.properties.B_Wahl, #{@district.official_id}) })
+      .style("stroke-width", "1")
+      .style("stroke", "gray")
+      .on("mouseover", function(d){ 
+        return mousemove("Köln " + get_district(d.properties.B_Wahl) +": "+ d.properties.STT, "") 
+      })
+      .on("mousemove",function(d) { 
+        mousemove("Köln " + get_district(d.properties.B_Wahl) +": "+ d.properties.STT, d3.select(this).node().textContent);  } )
+      .on("mouseout", mouseout);
+
+    function get_color(feature, district) {
+      if (feature == district) {
+        return "#16A085";
+      }else{
+        return "#cdd";
+      }
+    }
+
+    function get_district(number) {
+      district = {};
+      district[93] = "I";
+      district[94] = "II";
+      district[95] = "III";
+      district[101] = "IV";
+      return district[number];
+    }
+
+    tooltipdiv = d3.select("body").append("div").attr("class", "tooltip");
+
+    function mousemove(text, text2){
+      tooltipdiv.style("visibility", "visible")
+                .style("opacity", 1)
+                .style("top", d3.event.pageY+15 + "px")
+                .style("left", d3.event.pageX + "px")
+                .html(text + "<br/>" + text2);
+    }
+
+    function mouseout(){
+      tooltipdiv.style("opacity", 1)
+                .style("visibility", "hidden");
+    }
+
+  });
