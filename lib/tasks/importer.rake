@@ -62,4 +62,61 @@ namespace :import do
     end
   end
 
+  desc 'import wahlbeteiligung 2013/2009'
+  task wahlbeteiligung_2013_2009: :environment do
+
+    csv_text = File.read("db/2013-09-22_wahlbeteiligung_koeln.csv")
+    csv = CSV.parse(csv_text, headers: true)
+
+    election_2013 = BundestagElection.find_by_elective_date("2013-09-22") ||  BundestagElection.create(elective_date: "2013-09-22", elective_count: 722430, elective_percent: 100)
+    election_2009 = BundestagElection.find_by_elective_date("2009-09-27") ||  BundestagElection.create(elective_date: "2009-09-27", elective_count: 703424, elective_percent: 100)
+    
+    BundestagElectionDistrictVote.destroy_all
+
+    csv.each do |row|
+
+      BundestagElectionDistrictVote.create(
+        election_id: election_2013.id,
+        vote_count: election_2013.elective_count.to_i * row["2013"].gsub(",",".").to_f,
+        vote_percent: row["2013"].gsub(",","."),
+        time: row["Uhrzeit"])
+
+      BundestagElectionDistrictVote.create(
+        election_id: election_2009.id,
+        vote_count: election_2009.elective_count.to_i * row["2009"].gsub(",",".").to_f,
+        vote_percent: row["2009"].gsub(",","."),
+        time: row["Uhrzeit"]) 
+        
+    #   election_vote_2013 = BundestagElectionDistrictVote.find_by_time(Time.zone.parse(row["Uhrzeit"].gsub(" Uhr","")).utc)
+    #   if election_vote_2013
+    #     unless election_vote_2013.vote_percent == row["2013"].gsub(",",".").to_f
+    #       election_vote_2013.update_attribute(:vote_percent, row["2013"])
+    #     end
+    #   else
+    #     BundestagElectionDistrictVote.create(
+    #       election_id: election_2013.id,
+    #       vote_count: election_2013.elective_count.to_i * row["2013"].gsub(",",".").to_f,
+    #       vote_percent: row["2013"].gsub(",","."),
+    #       time: row["Uhrzeit"])
+    #   end
+
+    #   election_vote_2009 = BundestagElectionDistrictVote.find_by_time(Time.zone.parse(row["Uhrzeit"].gsub(" Uhr","")).utc)
+    #   if election_vote_2009
+    #     unless election_vote_2009.vote_percent == row["2009"].gsub(",",".").to_f
+    #       election_vote_2009.update_attribute(:vote_percent, row["2009"])
+    #     end
+    #   else
+    #     BundestagElectionDistrictVote.create(
+    #       election_id: election_2009.id,
+    #       vote_count: election_2009.elective_count.to_i * row["2009"].gsub(",",".").to_f,
+    #       vote_percent: row["2009"].gsub(",","."),
+    #       time: row["Uhrzeit"])       
+    #   end
+    end
+
+    latest_2013_update = BundestagElectionDistrictVote.where(election_id: election_2013.id).where.not(vote_count: 0).last
+    election_2013.update_attributes(had_choosen_count: latest_2013_update.vote_count, had_choosen_percent: latest_2013_update.vote_percent)
+  end
+
+
 end

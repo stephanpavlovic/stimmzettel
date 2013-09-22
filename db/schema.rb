@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130921132634) do
+ActiveRecord::Schema.define(version: 20130921201200) do
+
+  create_table "bundestag_election_district_votes", force: true do |t|
+    t.integer  "election_id"
+    t.integer  "district_id"
+    t.integer  "vote_count"
+    t.float    "vote_percent"
+    t.datetime "time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bundestag_election_party_votes", force: true do |t|
     t.integer  "bundestag_election_id"
